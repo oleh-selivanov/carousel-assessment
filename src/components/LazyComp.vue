@@ -7,15 +7,15 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted, onUnmounted, nextTick } from 'vue'
 
 const emit = defineEmits(['error', 'load'])
 
-const props= withDefaults( defineProps<{
+const props = defineProps<{
   threshold?: number
-}>(), {
-  threshold: 0
-})
+  rootMargin?: string
+  root?: Element
+}>()
 
 const observer = ref<IntersectionObserver | null>(null)
 const wrapper = ref<HTMLDivElement | null>(null)
@@ -36,13 +36,17 @@ onMounted(() => {
       })
     }
 
-    observer.value = new IntersectionObserver(handleIntersect, {
-      threshold: props.threshold,
-    })
+    nextTick(() => {
+      observer.value = new IntersectionObserver(handleIntersect, {
+        root: props.root,
+        threshold: props.threshold,
+        rootMargin: props.rootMargin
+      })
 
-    if (wrapper.value) {
-      observer.value.observe(wrapper.value)
-    }
+      if (wrapper.value) {
+        observer.value.observe(wrapper.value)
+      }
+    })
   } else {
     onLoad()
   }

@@ -1,5 +1,5 @@
 <template>
-  <LazyComp>
+  <LazyComp root-margin="400px" :root="root">
     <template #default>
       <img :class="imgClass" ref="img" :src="src" :alt="alt">
     </template>
@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue'
 import LazyComp from '@/components/LazyComp.vue'
 
 defineProps<{
@@ -16,6 +16,12 @@ defineProps<{
   imgClass?: string
 }>()
 const img = ref<HTMLImageElement | null>(null)
+
+const root = ref<HTMLElement>()
+
+onMounted(() => {
+  root.value = document.getElementById('main-carousel') as HTMLElement
+})
 </script>
 
 <style scoped>

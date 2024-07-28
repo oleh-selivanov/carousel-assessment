@@ -2,7 +2,7 @@
   <main>
     <h1>Carousel Assessment</h1>
   <!--  Carousel goes here   -->
-    <AppCarousel class="main-carousel" :items="photos" unique-id="id">
+    <AppCarousel id="main-carousel" class="main-carousel" :items="photos" unique-id="id">
       <template #item="{item}">
         <div class="photo">
           <h3>{{item.title}}</h3>
@@ -30,12 +30,9 @@ interface Photo {
 const photos = ref<Photo[]>([])
 
 function getPhotos () {
-  return fetch('https://jsonplaceholder.typicode.com/photos?albumId=1').then((res) => {
-    return (res.json()
-      .then(data => {
-      photos.value = data
-    }))
-  })
+  return fetch('https://jsonplaceholder.typicode.com/photos?albumId=1').then((res) =>
+      res.json()
+        .then(data => { photos.value = data }))
 }
 
 onBeforeMount(getPhotos)
