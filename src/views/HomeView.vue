@@ -7,7 +7,7 @@
         <div class="photo">
           <h3>{{item.title}}</h3>
 
-          <LazyImage class="img-wrapper" :src="item.url" :alt="item.title" img-class="img" />
+          <img class="img-wrapper" :src="item.url" :alt="item.title">
         </div>
       </template>
     </AppCarousel>
@@ -17,7 +17,6 @@
 <script setup lang="ts">
 import { onBeforeMount, ref } from 'vue'
 import AppCarousel from '@/components/carousel/AppCarousel.vue'
-import LazyImage from '@/components/carousel/LazyImage.vue'
 
 interface Photo {
   albumId: number
@@ -43,14 +42,18 @@ onBeforeMount(getPhotos)
   padding: 16px 0;
 }
 
+.main-carousel :deep(.wrapper) {
+  width: 33%;
+  min-width: 33%;
+}
+
 .photo {
   scroll-snap-align: start;
   display: flex;
   flex-direction: column;
   padding: 16px;
   gap: 12px;
-  width: 33%;
-  min-width: 33%;
+  width: 100%;
 }
 
 .photo h3 {
@@ -62,17 +65,19 @@ onBeforeMount(getPhotos)
 
 .img-wrapper {
   height: 320px;
+  width: 100%;
+  border-radius: 16px;
 }
 
 @media (max-width: 768px) {
-  .photo {
+  .main-carousel :deep(.wrapper) {
     width: 50%;
     min-width: 50%;
   }
 }
 
 @media (max-width: 425px) {
-  .photo {
+  .main-carousel :deep(.wrapper) {
     width: 100%;
     min-width: 100%;
   }
