@@ -67,7 +67,6 @@ onBeforeMount(getPhotos)
 @media (max-width: 768px) {
   .photo {
     width: 50%;
-    min-width: 50%;
   }
 }
 
