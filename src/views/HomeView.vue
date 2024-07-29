@@ -50,7 +50,7 @@ onBeforeMount(getPhotos)
   padding: 16px;
   gap: 12px;
   width: 33%;
-  min-width: 320px;
+  min-width: 33%;
 }
 
 .photo h3 {
