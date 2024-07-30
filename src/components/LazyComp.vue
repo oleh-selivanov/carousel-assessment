@@ -1,15 +1,14 @@
 <template>
   <div class="wrapper" ref="wrapper">
-    <slot v-if="loaded" :onLoad="onLoad" :onError="onError" />
-    <slot v-if="!loaded && hasError" name="error" />
-    <slot v-if="!loaded && !hasError" name="loading" />
+    <slot v-if="loaded" :onLoad="onLoad" />
+    <slot v-else name="loading" />
   </div>
 </template>
 
 <script lang="ts" setup>
 import { ref, onMounted, onUnmounted, nextTick } from 'vue'
 
-const emit = defineEmits(['error', 'load'])
+const emit = defineEmits(['load'])
 
 const props = defineProps<{
   threshold?: number
@@ -21,7 +20,6 @@ const observer = ref<IntersectionObserver | null>(null)
 const wrapper = ref<HTMLDivElement | null>(null)
 
 const loaded = ref(false)
-const hasError = ref(false)
 
 onMounted(() => {
   if (window.IntersectionObserver) {
@@ -58,14 +56,7 @@ onUnmounted(() => {
   }
 })
 
-function onError () {
-  hasError.value = true
-  loaded.value = false
-  emit('error')
-}
-
 function onLoad () {
-  hasError.value = false
   loaded.value = true
   emit('load')
 }
