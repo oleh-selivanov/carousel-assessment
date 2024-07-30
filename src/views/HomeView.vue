@@ -16,7 +16,7 @@
 
 <script setup lang="ts">
 import { onBeforeMount, ref } from 'vue'
-import AppCarousel from '@/components/carousel/AppCarousel.vue'
+import AppCarousel from '@/components/AppCarousel.vue'
 
 interface Photo {
   albumId: number
