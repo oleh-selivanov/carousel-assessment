@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper" ref="wrapper">
     <slot v-if="loaded" :onLoad="onLoad" />
-    <slot v-if="!loaded" name="loading" />
+    <slot v-else name="loading" />
   </div>
 </template>
 
